@@ -61,7 +61,25 @@ public class Main {
 
 
 
+//Q1  B :
+        List<Card> cards = Arrays.asList(
+                new Card(1L, "ABC", LocalDate.of(2025, 10, 1)),
+                new Card(2L, "ABC", LocalDate.of(2027, 5, 1)),
+                new Card(3L, "XYZ", LocalDate.of(2026, 8, 1)),
+                new Card(4L, "XYZ", LocalDate.of(2028, 3, 1)),
+                new Card(5L, "DEF", LocalDate.of(2024, 12, 1))
+        );
 
+        List<Card> results = cards.stream()
+                .collect(Collectors.groupingBy(Card::getFingerprint))
+                .values()
+                .stream()
+                .map(cardList -> cardList.stream()
+                        .max(Comparator.comparing(Card::getExpiryDate))
+                        .get())
+                .collect(Collectors.toList());
+        System.out.println("sol Q1 B : ");
+        results.forEach(System.out::println);
 
 
 
